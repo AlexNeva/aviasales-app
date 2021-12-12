@@ -1,0 +1,29 @@
+.top-filter {
+  display: flex;
+  margin-bottom: 20px;
+
+  &__control {
+    flex: 0 0 calc(100% / 3);
+    background-color: #fff;
+    padding: 17px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    cursor: pointer;
+
+    border: 1px solid #DFE5EC;
+
+    &:first-child {
+      border-radius: 5px 0 0 5px;
+    }
+    &:last-child {
+      border-radius: 0 5px 5px 0;
+    }
+
+    &.active {
+      background-color: #2196F3;
+      color: #fff;
+      border-color: #2196F3;
+    }
+  }
+}

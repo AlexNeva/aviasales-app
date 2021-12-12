@@ -1,0 +1,15 @@
+.side-filter {
+  background-color: #FFFFFF;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px 0 10px 0;
+  &__title {
+    padding-left: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  &__checkboxes {
+
+  }
+}

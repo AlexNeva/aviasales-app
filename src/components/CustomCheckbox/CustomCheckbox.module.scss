@@ -1,0 +1,53 @@
+$border-color: #9ABBCE;
+$border-color-active: #2196F3;
+$hover-checkbox: #F1FCFF;
+
+.custom-checkbox {
+  padding: 10px 20px;
+  &__input {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+
+    &:checked + .custom-checkbox__label .custom-checkbox__icon {
+      background-size: 12px 8px;
+      border: 1px solid $border-color-active;
+    }
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid $border-color;
+    border-radius: 2px;
+    margin-right: 10px;
+    background-image: url('../../img/check.svg');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 0 0;
+
+    transition: background-size 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
+  }
+
+  &__text {
+    font-size: 13px;
+    font-weight: 400;
+    user-select: none;
+  }
+
+  &:hover {
+    background-color: $hover-checkbox;
+  }
+}

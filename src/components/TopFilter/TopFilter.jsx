@@ -1,14 +1,40 @@
 import React from 'react';
-import classes from './TopFilter.module.scss'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import classes from './TopFilter.module.scss';
+import TopFilterItem from './TopFilterItem';
 
-function TopFilter() {
+function TopFilter({ topFilter }) {
   return (
     <div className={classes['top-filter']}>
-      <button type='button' className={`${classes["top-filter__control"]} ${classes.active}`}>Самый дешевый</button>
-      <button type='button' className={classes["top-filter__control"]}>Самый быстрый</button>
-      <button type='button' className={classes["top-filter__control"]}>Оптимальный</button>
+      {
+        topFilter.map(filter =>
+          <TopFilterItem
+            key={filter.id}
+            title={filter.title}
+            active={filter.active}
+          />)
+      }
     </div >
   );
 }
 
-export default TopFilter;
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    topFilter: state.sorting.sorting
+  }
+}
+
+TopFilter.defaultProps = {
+  topFilter: [],
+};
+
+TopFilter.propTypes = {
+  topFilter: PropTypes.arrayOf(PropTypes.object),
+};
+
+
+
+export default connect(mapStateToProps, null)(TopFilter);

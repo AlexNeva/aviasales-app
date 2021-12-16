@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable default-param-last */
 import { SORT_FILTER } from './type'
 
@@ -9,7 +10,7 @@ const initialState = {
   ]
 }
 
-export default (state = initialState, action) => {
+export const sortingReducer = (state = initialState, action) => {
   switch (action.type) {
     case SORT_FILTER:
       return state

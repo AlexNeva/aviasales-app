@@ -1,9 +1,13 @@
+/* eslint-disable import/prefer-default-export */
 import { TRANSFER_FILTER } from './type'
 
 
-export default function transferFilter(tranferNum) {
+export function transferFilter(transferId, checkedCount) {
   return {
     type: TRANSFER_FILTER,
-    payload: tranferNum
+    payload: {
+      transferId,
+      checkedCount
+    }
   }
 }

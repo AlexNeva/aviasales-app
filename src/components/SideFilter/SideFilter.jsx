@@ -1,21 +1,23 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { transferFilter } from '../../redux/actionsFilter';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import classes from './SideFilter.module.scss'
 
-function SideFilter({ sideFilter }) {
-  // const checkboxes = [
-  //   { id: 'all', title: 'Все' },
-  //   { id: '0-transfer', title: 'Без пересадок' },
-  //   { id: '1-transfer', title: '1 пересадка' },
-  //   { id: '2-transfer', title: '2 пересадки' },
-  //   { id: '3-transfer', title: '3 пересадки' },
-  // ]
+function SideFilter({ sideFilter, setFilter }) {
+
+  const checkedCount = sideFilter
+    .reduce((acc, filter) => filter.transfer !== 'all' && filter.checked
+      ? acc + 1
+      : acc, 0)
+
+
   return (
     <div className={classes['side-filter']}>
       <div className={classes["side-filter__title"]}>
-        Количество пересадок
+        Количество пересадок {checkedCount}
       </div>
       <div className={classes["side-filter__checkboxes"]}>
         {
@@ -23,7 +25,10 @@ function SideFilter({ sideFilter }) {
             <CustomCheckbox
               key={checkbox.transfer}
               title={checkbox.title}
-              label={checkbox.transfer}
+              id={checkbox.transfer}
+              checked={checkbox.checked}
+              setFilter={setFilter}
+              checkedCount={checkedCount}
             />)
         }
       </div>
@@ -32,22 +37,29 @@ function SideFilter({ sideFilter }) {
 }
 
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    sideFilter: state.filters.filters
-  }
-}
 
 
 SideFilter.defaultProps = {
   sideFilter: [],
+  setFilter: () => { }
 };
 
 SideFilter.propTypes = {
   sideFilter: PropTypes.arrayOf(PropTypes.object),
+  setFilter: PropTypes.func
 };
 
+const mapStateToProps = (state) => ({
+
+  sideFilter: state.filters.filters
+
+})
+
+const mapDispatchToProps = {
+  setFilter: transferFilter
+}
 
 
-export default connect(mapStateToProps, null)(SideFilter);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideFilter);

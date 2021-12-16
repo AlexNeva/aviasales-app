@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './redux/rootReducer';
+import { rootReducer } from './redux/rootReducer';
 import 'normalize.css';
 import './index.scss';
 import App from './App';

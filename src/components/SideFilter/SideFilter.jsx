@@ -1,23 +1,37 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { transferFilter } from '../../redux/actionsFilter';
+import { transferFilter } from '../../redux/actionsFilter'
+
+
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import classes from './SideFilter.module.scss'
 
 function SideFilter({ sideFilter, setFilter }) {
 
-  const checkedCount = sideFilter
-    .reduce((acc, filter) => filter.transfer !== 'all' && filter.checked
-      ? acc + 1
-      : acc, 0)
+  const isAllChecked = !!sideFilter.reduce((acc, filter) => filter.transfer !== 'all'
+    ? acc * filter.checked
+    : acc
+    , true)
+
+
+  useEffect(() => {
+    if (isAllChecked) {
+      setFilter('all', true)
+    } else {
+      setFilter('all', false)
+    }
+  }, [isAllChecked])
+
 
 
   return (
     <div className={classes['side-filter']}>
       <div className={classes["side-filter__title"]}>
-        Количество пересадок {checkedCount}
+        Количество пересадок
       </div>
       <div className={classes["side-filter__checkboxes"]}>
         {
@@ -27,8 +41,7 @@ function SideFilter({ sideFilter, setFilter }) {
               title={checkbox.title}
               id={checkbox.transfer}
               checked={checkbox.checked}
-              setFilter={setFilter}
-              checkedCount={checkedCount}
+              role={checkbox.role}
             />)
         }
       </div>
@@ -41,25 +54,24 @@ function SideFilter({ sideFilter, setFilter }) {
 
 SideFilter.defaultProps = {
   sideFilter: [],
-  setFilter: () => { }
+  setFilter: () => { },
+
 };
 
 SideFilter.propTypes = {
   sideFilter: PropTypes.arrayOf(PropTypes.object),
-  setFilter: PropTypes.func
+  setFilter: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-
-  sideFilter: state.filters.filters
-
+  sideFilter: state.filters.filters,
+  isAllChecked: state.filters.allChacked
 })
 
 const mapDispatchToProps = {
-  setFilter: transferFilter
+  setFilter: transferFilter,
 }
 
 
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(SideFilter);
+

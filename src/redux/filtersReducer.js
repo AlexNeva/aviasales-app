@@ -5,74 +5,39 @@
 import { TRANSFER_FILTER } from './type'
 
 const initialState = {
-
   filters: [
-    { transfer: 'all', checked: false, title: 'Все' },
-    { transfer: '0', checked: false, title: 'Без пересадок' },
-    { transfer: '1', checked: false, title: '1 пересадка' },
-    { transfer: '2', checked: false, title: '2 пересадки' },
-    { transfer: '3', checked: false, title: '3 пересадки' },
+    { transfer: 'all', checked: false, title: 'Все', role: 'main' },
+    { transfer: '0', checked: false, title: 'Без пересадок', role: null },
+    { transfer: '1', checked: false, title: '1 пересадка', role: null },
+    { transfer: '2', checked: false, title: '2 пересадки', role: null },
+    { transfer: '3', checked: false, title: '3 пересадки', role: null },
   ]
 }
 
-// action.payload === filter.transfer
-//   ? { ...filter, checked: !filter.checked }
-//   : { ...filter, checked: filter.checked }
-
-// ...state, filters: state.filters
-//   .map(filter => {
-//     if (action.payload === filter.transfer) {
-//       return { ...filter, checked: !filter.checked }
-//     }
-//     return filter
-//   })
-
-// if (action.payload === 'all') {
-//   return {
-//     ...state, filters: state.filters
-//       .map(filter => ({ ...filter, checked: true }))
-//   }
-// }
 
 
 export const filtersReducer = (state = initialState, action) => {
+
   switch (action.type) {
-    case TRANSFER_FILTER:
+    case TRANSFER_FILTER: {
 
-      if (action.payload.transferId === 'all') {
-        const checkedAll = state.filters.find(filter => filter.transfer === 'all');
-
-
+      if (action.payload.role === 'main') {
         return {
           ...state,
-          filters: state.filters.map(filter => ({ ...filter, checked: !checkedAll.checked }))
+          filters: state.filters.map(filter => ({ ...filter, checked: action.payload.checked }))
         }
       }
 
       return {
         ...state,
-        filters: state.filters.map(filter => {
-          if (action.payload.transferId === filter.transfer) {
-
-            return {
-              ...filter,
-              checked: !filter.checked
-            }
-          }
-          if (action.payload.checkedCount === 3) {
-            return filter.transfer === 'all'
-              ? {
-                ...filter,
-                checked: !filter.checked
-              }
-              : filter
-          }
-
-          return filter
-        })
+        filters: state.filters.map(filter =>
+          action.payload.transferId === filter.transfer
+            ? { ...filter, checked: action.payload.checked }
+            : filter
+        )
       }
 
-
+    }
 
     default:
       return state

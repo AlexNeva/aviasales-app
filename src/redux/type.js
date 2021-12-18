@@ -1,3 +1,2 @@
 export const TRANSFER_FILTER = 'TRANSFER_FILTER'
-
 export const SORT_FILTER = 'SORT_FILTER'

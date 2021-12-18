@@ -2,12 +2,13 @@
 import { TRANSFER_FILTER } from './type'
 
 
-export function transferFilter(transferId, checkedCount) {
+export function transferFilter(transferId, checked, role = null) {
   return {
     type: TRANSFER_FILTER,
     payload: {
       transferId,
-      checkedCount
+      checked,
+      role
     }
   }
 }

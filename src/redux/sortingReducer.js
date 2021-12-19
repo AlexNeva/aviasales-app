@@ -13,7 +13,14 @@ const initialState = {
 export const sortingReducer = (state = initialState, action) => {
   switch (action.type) {
     case SORT_FILTER:
-      return state
+
+      return {
+        ...state,
+        sorting: state.sorting.map(item => item.id === action.payload.id
+          ? { ...item, active: true }
+          : { ...item, active: false }
+        )
+      }
 
     default:
       return state

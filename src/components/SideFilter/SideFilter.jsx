@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { transferFilter } from '../../redux/actionsFilter'
+// import { fetchTickets } from '../../redux/actionsTickets'
 
 
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
@@ -25,6 +24,9 @@ function SideFilter({ sideFilter, setFilter }) {
       setFilter('all', false)
     }
   }, [isAllChecked])
+
+
+
 
 
 
@@ -55,21 +57,22 @@ function SideFilter({ sideFilter, setFilter }) {
 SideFilter.defaultProps = {
   sideFilter: [],
   setFilter: () => { },
-
 };
 
 SideFilter.propTypes = {
   sideFilter: PropTypes.arrayOf(PropTypes.object),
   setFilter: PropTypes.func,
+
 };
 
 const mapStateToProps = (state) => ({
   sideFilter: state.filters.filters,
-  isAllChecked: state.filters.allChacked
+  isAllChecked: state.filters.allChacked,
 })
 
 const mapDispatchToProps = {
   setFilter: transferFilter,
+  // getTickets: fetchTickets,
 }
 
 

@@ -1,10 +1,17 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classes from './TopFilter.module.scss';
 import TopFilterItem from './TopFilterItem';
+import { sortBy } from '../../redux/actionsTickets';
 
-function TopFilter({ topFilter }) {
+function TopFilter({ topFilter, sortTickets, tickets }) {
+  useEffect(() => {
+    sortTickets()
+  }, [tickets.length])
+
+
   return (
     <div className={classes['top-filter']}>
       {
@@ -13,6 +20,7 @@ function TopFilter({ topFilter }) {
             key={filter.id}
             title={filter.title}
             active={filter.active}
+            id={filter.id}
           />)
       }
     </div >
@@ -20,21 +28,33 @@ function TopFilter({ topFilter }) {
 }
 
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    topFilter: state.sorting.sorting
-  }
+const mapStateToProps = (state) => ({
+
+  topFilter: state.sorting.sorting,
+  tickets: state.tickets.tickets,
+
+})
+
+const mapDispatchToProps = {
+
+  sortTickets: sortBy,
+
 }
 
+
+
 TopFilter.defaultProps = {
+  tickets: [],
   topFilter: [],
+  sortTickets: () => { },
 };
 
 TopFilter.propTypes = {
+  tickets: PropTypes.arrayOf(PropTypes.object),
   topFilter: PropTypes.arrayOf(PropTypes.object),
+  sortTickets: PropTypes.func,
 };
 
 
 
-export default connect(mapStateToProps, null)(TopFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(TopFilter);

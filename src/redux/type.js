@@ -1,2 +1,15 @@
 export const TRANSFER_FILTER = 'TRANSFER_FILTER'
 export const SORT_FILTER = 'SORT_FILTER'
+export const TICKETS = 'TICKETS'
+
+
+export const FETCH_TICKETS_START = 'FETCH_TICKETS_START'
+export const FETCH_TICKETS_SUCCESS = 'FETCH_TICKETS_SUCCESS'
+export const FETCH_TICKETS_ERROR = 'FETCH_TICKETS_ERROR'
+
+
+
+export const SORT_BY = 'SORT_BY'
+
+
+

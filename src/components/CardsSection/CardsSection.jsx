@@ -1,3 +1,4 @@
+
 /* eslint-disable no-unused-vars */
 
 
@@ -15,6 +16,9 @@ import MoreBtn from '../MoreBtn/MoreBtn';
 
 
 import Card from '../Card/Card';
+
+const ticketsService = new TicketsService();
+
 
 function CardsSection({ getTickets, tickets, stopSearch, sideFilter, error }) {
 
@@ -61,7 +65,6 @@ function CardsSection({ getTickets, tickets, stopSearch, sideFilter, error }) {
 
 
 
-  const ticketsService = new TicketsService();
 
 
 
@@ -69,15 +72,17 @@ function CardsSection({ getTickets, tickets, stopSearch, sideFilter, error }) {
     ticketsService.getSearchId()
       .then(data => {
         setSearchId(data.searchId)
-        console.log(data.searchId);
-
         getTickets(data.searchId)
       })
       .catch((err) => err)
   }, [])
 
   useEffect(() => {
-    getTickets(searchId)
+
+    if (searchId) {
+      getTickets(searchId)
+
+    }
 
   }, [tickets.length])
 
